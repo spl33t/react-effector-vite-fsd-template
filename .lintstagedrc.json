@@ -1,0 +1,5 @@
+{
+  "*.{ts,tsx,js,jsx,mjs}": [
+    "prettier --write --config .prettierrc.json"
+  ]
+}
