@@ -1,12 +1,11 @@
-import { Link } from "atomic-router-react";
-import { ReactNode } from "react";
+import { Link } from "atomic-router-react"
+import { useUnit } from "effector-react"
+import { ReactNode } from "react"
 import styled from "styled-components"
-import { useUnit } from "effector-react";
 
-import { SessionPanel } from "@/entities/session";
-import { routes } from "@/shared/config/routes";
-import { $isAuthorized } from "@/shared/config/token";
-
+import { SessionPanel } from "@/entities/session"
+import { routes } from "@/shared/config/routes"
+import { $isAuthorized } from "@/shared/config/token"
 
 type LayoutProps = {
   children: ReactNode
@@ -17,31 +16,23 @@ export const Layout = (props: LayoutProps) => {
 
   return (
     <LayoutContainer>
-      {isAuth &&
+      {isAuth && (
         <Header>
-          <LogoLink to={routes.home}>
-            AppTest
-          </LogoLink>
+          <LogoLink to={routes.home}>AppTest</LogoLink>
           <NavigationMenu>
             <Link to={routes.home}>Home</Link>
             <Link to={routes.about}>About</Link>
           </NavigationMenu>
-          <SessionPanel/>
+          <SessionPanel />
         </Header>
-      }
+      )}
 
-      <Content>
-        {props.children}
-      </Content>
+      <Content>{props.children}</Content>
 
-      {isAuth &&
-        <Footer>
-          Test App
-        </Footer>
-      }
+      {isAuth && <Footer>Test App</Footer>}
     </LayoutContainer>
-  );
-};
+  )
+}
 
 const LayoutContainer = styled.div`
   max-width: 1240px;

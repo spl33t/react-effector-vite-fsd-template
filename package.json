@@ -9,7 +9,9 @@
     "stage": "vite build --mode staging",
     "preview": "vite preview",
     "lint": "eslint ./src",
-    "lint:fix": "eslint ./src --fix"
+    "lint:fix": "eslint ./src --fix",
+    "prettier:fix": "prettier --write --config .prettierrc.json",
+    "prepare": "husky install"
   },
   "dependencies": {
     "atomic-router": "0.7.0",

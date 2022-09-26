@@ -1,13 +1,13 @@
-import React from 'react';
-import styled from "styled-components";
-import { Link } from "atomic-router-react";
-import { useUnit } from "effector-react";
+import { Link } from "atomic-router-react"
+import { useUnit } from "effector-react"
+import React from "react"
+import styled from "styled-components"
 
-import { routes } from "@/shared/config/routes";
-import { $isAuthorized } from "@/shared/config/token";
+import { routes } from "@/shared/config/routes"
+import { $isAuthorized } from "@/shared/config/token"
 
-import { $login } from "../model/session";
-import { clickLogoutButton } from "../model/logout";
+import { clickLogoutButton } from "../model/logout"
+import { $login } from "../model/session"
 
 export const SessionPanel = () => {
   const isAuth = useUnit($isAuthorized)
@@ -15,22 +15,21 @@ export const SessionPanel = () => {
 
   return (
     <Wrapper>
-      {isAuth
-        ? <>
+      {isAuth ? (
+        <>
           <UserName>{userName}</UserName>
-          <Button onClick={() => clickLogoutButton()}>
-            Logout
-          </Button>
+          <Button onClick={() => clickLogoutButton()}>Logout</Button>
         </>
-        : <>
+      ) : (
+        <>
           <Button>
             <Link to={routes.login}>Login</Link>
           </Button>
         </>
-      }
+      )}
     </Wrapper>
-  );
-};
+  )
+}
 
 const Wrapper = styled.div`
   display: flex;
@@ -38,8 +37,7 @@ const Wrapper = styled.div`
   align-items: center;
 `
 
-const UserName = styled.div`
-`
+const UserName = styled.div``
 
 const Button = styled.div`
   background: #000;

@@ -1,5 +1,6 @@
 {
   "*.{ts,tsx,js,jsx,mjs}": [
-    "prettier --write --config .prettierrc.json"
+    "npm run lint:fix",
+    "npm run prettier:fix"
   ]
 }

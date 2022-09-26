@@ -1,17 +1,17 @@
-import { createEffect, createEvent, sample } from "effector";
+import { createEffect, createEvent, sample } from "effector"
 
-import { tokenErased } from "@/shared/config/token";
 import { logout } from "@/shared/api"
+import { tokenErased } from "@/shared/config/token"
 
-export const clickLogoutButton = createEvent<any>()
+export const clickLogoutButton = createEvent()
 export const logoutFx = createEffect(logout)
 
 sample({
   clock: clickLogoutButton,
-  target: logoutFx
+  target: logoutFx,
 })
 
 sample({
   clock: clickLogoutButton,
-  target: tokenErased
+  target: tokenErased,
 })

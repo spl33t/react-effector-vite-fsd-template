@@ -1,1 +1,1 @@
-export const model = 'model'
+export const model = "model"

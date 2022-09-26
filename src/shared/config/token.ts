@@ -1,32 +1,42 @@
-import { createEvent, createStore, sample } from "effector"
+import { createEffect, createEvent, createStore, sample } from "effector"
 
-export const tokenReceived = createEvent<any>()
+export const tokenReceived = createEvent<string>()
 export const tokenErased = createEvent()
 
 const ACCESS_TOKEN = "accessToken"
-const REFRESH_TOKEN = "refreshToken"
 
-export const $accessToken = createStore(localStorage.getItem(ACCESS_TOKEN) || null)
+export const $accessToken = createStore(
+  localStorage.getItem(ACCESS_TOKEN) || null
+)
 
-$accessToken
-  .on(tokenReceived, (_, token) => token)
-  .on(tokenErased, () => null)
+$accessToken.on(tokenReceived, (_, token) => token).on(tokenErased, () => null)
 
 export const $isAuthorized = $accessToken.map(Boolean)
 
-sample({
-    clock: tokenReceived,
-    filter: Boolean,
-    fn: (token) => localStorage.setItem(ACCESS_TOKEN, token)
+//FIXME Вынести в либы
+const setItemLocalStorageFx = createEffect(
+  ({ name, value }: { name: string; value: string }) => {
+    localStorage.setItem(name, value)
+  }
+)
+
+const removeItemLocalStorageFx = createEffect((name: string) => {
+  localStorage.removeItem(name)
 })
 
 sample({
-    clock: tokenErased,
-    fn: () => localStorage.removeItem(ACCESS_TOKEN)
+  clock: tokenReceived,
+  filter: Boolean,
+  fn: (token) => ({ name: ACCESS_TOKEN, value: token }),
+  target: setItemLocalStorageFx,
 })
 
-window.addEventListener('storage', (event) => {
-    if (event.key === ACCESS_TOKEN)
-        if (event.newValue === null)
-            tokenErased()
+sample({
+  clock: tokenErased,
+  fn: () => ACCESS_TOKEN,
+  target: removeItemLocalStorageFx,
+})
+
+window.addEventListener("storage", (event) => {
+  if (event.key === ACCESS_TOKEN) if (event.newValue === null) tokenErased()
 })

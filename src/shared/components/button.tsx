@@ -1,15 +1,11 @@
-import styled from "styled-components"
-import { FormEvent } from "react";
+import { FormEvent } from "react"
 
-interface ButtonProps extends HTMLButtonElement {}
+type ButtonProps = HTMLButtonElement
 
 export const Button = (props: ButtonProps) => {
-
   const onChangeHandler = (e: FormEvent<HTMLButtonElement>) => {
-    alert('clicked btn')
+    alert("clicked btn")
   }
 
-  return (
-    <button onChange={onChangeHandler}></button>
-  )
+  return <button onChange={onChangeHandler}></button>
 }

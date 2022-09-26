@@ -1,4 +1,3 @@
 import "./model"
 
-export { HomePage } from "./page";
-
+export { HomePage } from "./page"

@@ -1,7 +1,7 @@
-import { createEffect, createEvent, createStore, sample } from "effector";
+import { createEffect, createEvent, createStore, sample } from "effector"
 
-import { refreshSession, User } from "@/shared/api";
-import { tokenReceived, tokenErased, $accessToken } from "@/shared/config/token";
+import { User, refreshSession } from "@/shared/api"
+import { $accessToken, tokenErased, tokenReceived } from "@/shared/config/token"
 
 export const readyToLoadSession = createEvent()
 export const refreshSessionFx = createEffect(refreshSession)
@@ -11,30 +11,28 @@ export const $session = createStore<User | null>(null)
   .on(sessionDropped, () => null)
 
 sample({
-  source: $accessToken,
   clock: readyToLoadSession,
+  source: $accessToken,
   filter: Boolean,
-  target: refreshSessionFx
+  target: refreshSessionFx,
 })
 
 sample({
-  source: $session.map(state => state?.token),
+  source: $session.map((state) => state?.token),
   filter: Boolean,
-  target: tokenReceived
+  target: tokenReceived,
 })
 
 sample({
   clock: refreshSessionFx.fail,
-  target: sessionDropped
+  target: sessionDropped,
 })
 
 sample({
   clock: sessionDropped,
-  target: tokenErased
+  target: tokenErased,
 })
 
-export const $userId = $session.map(state => state?.id)
-export const $login = $session.map(state => state?.login)
+export const $userId = $session.map((state) => state?.id)
+export const $login = $session.map((state) => state?.login)
 export const $sessionLoading = refreshSessionFx.pending
-
-

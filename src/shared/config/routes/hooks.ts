@@ -1,9 +1,16 @@
-import { buildPath, chainRoute, RouteInstance, RouteParams, RouteParamsAndQuery, RouteQuery } from "atomic-router";
-import { useRouter } from "atomic-router-react";
-import { createEvent, sample } from "effector";
-import { not } from "patronum";
+import {
+  RouteInstance,
+  RouteParams,
+  RouteParamsAndQuery,
+  RouteQuery,
+  buildPath,
+  chainRoute,
+} from "atomic-router"
+import { useRouter } from "atomic-router-react"
+import { createEvent, sample } from "effector"
+import { not } from "patronum"
 
-import { $isAuthorized } from "../token";
+import { $isAuthorized } from "../token"
 
 /**
  * Clones the passed route and opens it only if user is authenticated
@@ -11,18 +18,18 @@ import { $isAuthorized } from "../token";
  * @returns New route
  */
 export function chainAuthenticated<Params>(route: RouteInstance<any>) {
-  const sessionCheckStarted = createEvent<RouteParamsAndQuery<any>>();
+  const sessionCheckStarted = createEvent<RouteParamsAndQuery<any>>()
 
   const alreadyAuthorized = sample({
     clock: sessionCheckStarted,
     filter: $isAuthorized,
-  });
+  })
 
   return chainRoute({
     route,
     beforeOpen: sessionCheckStarted,
     openOn: alreadyAuthorized,
-  });
+  })
 }
 
 /**
@@ -31,28 +38,28 @@ export function chainAuthenticated<Params>(route: RouteInstance<any>) {
  * @returns New route
  */
 export function chainAnonymous<Params>(route: RouteInstance<any>) {
-  const sessionCheckStarted = createEvent<RouteParamsAndQuery<any>>();
+  const sessionCheckStarted = createEvent<RouteParamsAndQuery<any>>()
 
   const alreadyAnonymous = sample({
     clock: sessionCheckStarted,
     filter: not($isAuthorized),
-  });
+  })
 
   return chainRoute({
     route,
     beforeOpen: sessionCheckStarted,
     openOn: alreadyAnonymous,
-  });
+  })
 }
 
 export function usePath<T extends RouteParams>(
-  route: RouteInstance<T>,
+  route: RouteInstance<T>
 ): (params: T, query?: RouteQuery) => string {
-  const router = useRouter();
-  const routeObj = router.routes.find((routeObj) => routeObj.route === route);
+  const router = useRouter()
+  const routeObj = router.routes.find((routeObj) => routeObj.route === route)
 
   if (!routeObj) {
-    throw new Error('[RouteLink] Route not found');
+    throw new Error("[RouteLink] Route not found")
   }
 
   return (params, query = {}) =>
@@ -60,15 +67,15 @@ export function usePath<T extends RouteParams>(
       pathCreator: routeObj.path,
       params: params || {},
       query: query || {},
-    });
+    })
 }
 
 export function useLink<T extends RouteParams>(
   route: RouteInstance<T>,
   params: T,
-  query: RouteQuery = {},
+  query: RouteQuery = {}
 ) {
-  const builder = usePath(route);
+  const builder = usePath(route)
 
-  return builder(params, query);
+  return builder(params, query)
 }
