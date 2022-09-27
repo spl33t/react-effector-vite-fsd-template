@@ -33,4 +33,4 @@ jobs:
               cd $REPO_NAME
             fi
             
-            docker compose up
+            docker-compose up
