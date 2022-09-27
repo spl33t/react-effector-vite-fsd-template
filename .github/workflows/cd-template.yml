@@ -9,7 +9,7 @@ env:
   REPO_NAME: ${{ github.event.repository.name }}
   BRANCH_NAME: ${{ github.ref_name }}
   DEPLOY_ADDRESS: ${{ secrets.DEPLOY_ADDRESS }}
-  SSH_KEY: ${{ secrets.SSH_KEY }}
+  SSH_KEY: ${{ secrets.PRIVATE_SSH_KEY }}
 
 jobs:
   deploy:
