@@ -1,12 +1,41 @@
-import { Link } from "atomic-router-react"
+import { useQuery } from "@farfetched/react"
+import styled from "styled-components"
 
-import { routes } from "@/shared/config/routes"
+import { MainLayout } from "@/layouts/main"
+
+import { characterQuery } from "./model"
 
 export const HomePage = () => {
+  const { data: characters } = useQuery(characterQuery)
+
   return (
-    <div>
+    <MainLayout>
       <h1>Home</h1>
-      <Link to={routes.about}>Абаут</Link>
-    </div>
+      <br /> <br />
+      <CharactersWrapper>
+        {characters?.results.map((character: any) => {
+          return (
+            <CharacterCard key={character.id}>
+              <h2>{character.name}</h2>
+              <img src={character.image} />
+            </CharacterCard>
+          )
+        })}
+      </CharactersWrapper>
+    </MainLayout>
   )
 }
+
+const CharactersWrapper = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+`
+
+const CharacterCard = styled.div`
+  width: calc(33% - 20px);
+
+  img {
+    width: 100%;
+  }
+`

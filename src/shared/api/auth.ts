@@ -9,7 +9,12 @@ const user: User = { id: 1, login: "spl33t", token: "xxxx" }
 
 export const signIn = async (params: { login: string; password: string }) => {
   if (params.login !== user.login)
-    throw new Error("Юзера с таким логином не существует")
+    try {
+      throw new Error("Юзера с таким логином не существует")
+    } catch (err) {
+      console.error(err)
+      return null
+    }
 
   return new Promise<User>((resolve) =>
     setTimeout(() => {
@@ -19,7 +24,7 @@ export const signIn = async (params: { login: string; password: string }) => {
 }
 
 export const logout = async () => {
-  return "Выход"
+  return null
 }
 
 export const refreshSession = async () => {

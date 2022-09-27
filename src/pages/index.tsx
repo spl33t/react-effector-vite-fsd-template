@@ -20,7 +20,6 @@ export const Pages = () => {
       <Route route={routes.home} view={HomePage} />
       <Route route={routes.about} view={AboutPage} />
       <Route route={routes.login} view={LoginPage} />
-
       <Route route={routes.errors.notFound} view={NotFoundPage} />
     </>
   )

@@ -1,6 +1,6 @@
 import { createEffect, sample } from "effector"
 
-import { signIn } from "@/shared/api"
+import { signIn } from "@/shared/api/auth"
 
 import { $session } from "./session"
 

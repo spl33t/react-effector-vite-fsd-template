@@ -1,6 +1,6 @@
 import { createEffect, createEvent, createStore, sample } from "effector"
 
-import { User, refreshSession } from "@/shared/api"
+import { User, refreshSession } from "@/shared/api/auth"
 import { $accessToken, tokenErased, tokenReceived } from "@/shared/config/token"
 
 export const readyToLoadSession = createEvent()
@@ -18,8 +18,9 @@ sample({
 })
 
 sample({
-  source: $session.map((state) => state?.token),
+  source: $session,
   filter: Boolean,
+  fn: ({ token }) => token,
   target: tokenReceived,
 })
 

@@ -1,35 +1,29 @@
 import { Link } from "atomic-router-react"
-import { useUnit } from "effector-react"
 import { ReactNode } from "react"
 import styled from "styled-components"
 
 import { SessionPanel } from "@/entities/session"
 import { routes } from "@/shared/config/routes"
-import { $isAuthorized } from "@/shared/config/token"
 
-type LayoutProps = {
+type MainLayoutProps = {
   children: ReactNode
 }
 
-export const Layout = (props: LayoutProps) => {
-  const isAuth = useUnit($isAuthorized)
-
+export const MainLayout = (props: MainLayoutProps) => {
   return (
     <LayoutContainer>
-      {isAuth && (
-        <Header>
-          <LogoLink to={routes.home}>AppTest</LogoLink>
-          <NavigationMenu>
-            <Link to={routes.home}>Home</Link>
-            <Link to={routes.about}>About</Link>
-          </NavigationMenu>
-          <SessionPanel />
-        </Header>
-      )}
+      <Header>
+        <LogoLink to={routes.home}>AppTest</LogoLink>
+        <NavigationMenu>
+          <Link to={routes.home}>Home</Link>
+          <Link to={routes.about}>About</Link>
+        </NavigationMenu>
+        <SessionPanel />
+      </Header>
 
       <Content>{props.children}</Content>
 
-      {isAuth && <Footer>Test App</Footer>}
+      <Footer>Test App</Footer>
     </LayoutContainer>
   )
 }

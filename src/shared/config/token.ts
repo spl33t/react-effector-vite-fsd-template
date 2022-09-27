@@ -37,6 +37,7 @@ sample({
   target: removeItemLocalStorageFx,
 })
 
+// Очистить  localStorage после удаления токена
 window.addEventListener("storage", (event) => {
   if (event.key === ACCESS_TOKEN) if (event.newValue === null) tokenErased()
 })

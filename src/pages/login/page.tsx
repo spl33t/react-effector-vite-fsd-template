@@ -1,7 +1,9 @@
 import { useUnit } from "effector-react"
 import { FormEvent } from "react"
+import styled from "styled-components"
 
 import { loginPending } from "@/entities/session"
+import { LoginLayout } from "@/layouts/login"
 
 import {
   $login,
@@ -22,9 +24,9 @@ export const LoginPage = () => {
   }
 
   return (
-    <div>
-      <h1>Login Page</h1>
-      <form onSubmit={submitFormHandle}>
+    <LoginLayout>
+      <Form onSubmit={submitFormHandle}>
+        <h1>Login Page</h1>
         <input
           value={login}
           onChange={(event) => changeInputLogin(event.target.value)}
@@ -38,7 +40,17 @@ export const LoginPage = () => {
         <button type="submit" className="btn" disabled={pending}>
           {pending ? "loading" : "submit"}
         </button>
-      </form>
-    </div>
+      </Form>
+    </LoginLayout>
   )
 }
+
+const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border: 1px solid;
+  border-radius: 19px;
+  padding: 20px;
+  box-shadow: 0 0 20px #0000004a;
+`

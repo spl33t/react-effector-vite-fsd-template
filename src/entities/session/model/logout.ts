@@ -1,6 +1,7 @@
 import { createEffect, createEvent, sample } from "effector"
 
-import { logout } from "@/shared/api"
+import { sessionDropped } from "@/entities/session"
+import { logout } from "@/shared/api/auth"
 import { tokenErased } from "@/shared/config/token"
 
 export const clickLogoutButton = createEvent()
@@ -12,6 +13,6 @@ sample({
 })
 
 sample({
-  clock: clickLogoutButton,
-  target: tokenErased,
+  clock: logoutFx.done,
+  target: sessionDropped,
 })
