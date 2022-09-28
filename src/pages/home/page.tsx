@@ -8,7 +8,22 @@ import { characterQuery } from "./model"
 export const HomePage = () => {
   const { data: characters } = useQuery(characterQuery)
 
-  return <MainLayout>as</MainLayout>
+  return (
+    <MainLayout>
+      <h1>Home</h1>
+      <br /> <br />
+      <CharactersWrapper>
+        {characters?.results.map((character: any) => {
+          return (
+            <CharacterCard key={character.id}>
+              <h2>{character.name}</h2>
+              <img src={character.image} />
+            </CharacterCard>
+          )
+        })}
+      </CharactersWrapper>
+    </MainLayout>
+  )
 }
 
 const CharactersWrapper = styled.div`
