@@ -5,7 +5,7 @@ import { defineConfig } from "vite"
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  envDir: "./env",
+  envDir: "./.env",
   resolve: {
     alias: {
       // for TypeScript path alias import like : @/x/y/z

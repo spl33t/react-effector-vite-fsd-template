@@ -35,11 +35,15 @@ export const LoginPage = () => {
         <input
           value={password}
           onChange={(event) => changeInputPassword(event.target.value)}
-          type="text"
+          type="password"
         />
-        <button type="submit" className="btn" disabled={pending}>
+        <button type="submit" disabled={pending}>
           {pending ? "loading" : "submit"}
         </button>
+
+        <div style={{ fontSize: 9 }}>
+          do not change login data, press submit for login
+        </div>
       </Form>
     </LoginLayout>
   )
@@ -49,8 +53,9 @@ const Form = styled.form`
   display: flex;
   flex-direction: column;
   gap: 10px;
-  border: 1px solid;
-  border-radius: 19px;
+  border: 2px solid #e5c1ff;
+  border-radius: 20px;
   padding: 20px;
-  box-shadow: 0 0 20px #0000004a;
+  box-shadow: 0 0 20px #9400ff4a;
+  background: #ffffff61;
 `

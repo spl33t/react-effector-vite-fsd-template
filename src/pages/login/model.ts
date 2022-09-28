@@ -6,7 +6,7 @@ export const changeInputLogin = createEvent<string>()
 export const changeInputPassword = createEvent<string>()
 export const submitForm = createEvent()
 
-export const $login = createStore<string>("")
+export const $login = createStore<string>("spl33t")
 export const $password = createStore<string>("")
 
 $login.on(changeInputLogin, (state, payload) => payload)

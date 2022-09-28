@@ -7,7 +7,7 @@ export const AboutPage = () => {
   return (
     <MainLayout>
       <h1>About</h1>
-      <Link to={routes.home}>Home</Link>
+      <Link to={routes.home}>go to Home page</Link>
     </MainLayout>
   )
 }
