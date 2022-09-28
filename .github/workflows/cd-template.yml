@@ -33,5 +33,6 @@ jobs:
               cd $REPO_NAME
             fi
             
+            docker-compose stop
             docker-compose up -d
             
