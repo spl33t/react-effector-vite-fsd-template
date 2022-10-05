@@ -32,4 +32,15 @@ export const GlobalStyle = createGlobalStyle`
     font-weight: 400;
     margin-bottom: 20px;
   }
+
+  h5 {
+    font-size: 15px;
+    font-weight: 400;
+    margin-bottom: 20px;
+  }
+  h6 {
+    font-size: 14px;
+    font-weight: 400;
+    margin-bottom: 20px;
+  }
 `
