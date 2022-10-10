@@ -43,12 +43,18 @@ sample({
 })
 
 //Редирект на страницу логина если не авторизованый зайдет на любую из страниц
-$isAuthorized.watch((s) => !s && routes.login.open({}))
+$isAuthorized.watch((s: boolean) => !s && routes.login.open({}))
 
-//Редирект на главную страницу если авторизованый зайдет на страницу логина
-sample({
-  clock: [routes.login.$isOpened, $isAuthorized],
-  source: $isAuthorized,
-  filter: Boolean,
-  target: routes.home.open,
+//Редирект на страницу на главную страницу после авторизации
+$isAuthorized.watch((s: boolean) => {
+  // eslint-disable-next-line effector/no-getState
+  s && routes.login.$isOpened.getState() && routes.home.open({})
+})
+
+//Редирект на главную если авторизованый зайдет на страницу логина
+routes.login.$isOpened.watch((s: boolean) => {
+  // eslint-disable-next-line effector/no-getState
+  if (s && $isAuthorized.getState()) {
+    routes.home.open({})
+  }
 })
